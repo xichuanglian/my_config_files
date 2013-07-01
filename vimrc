@@ -29,7 +29,7 @@ set nocompatible
     set autochdir " always switch to the current file directory 
     set backspace=indent,eol,start " make backspace a more flexible
     set backup " make backup files
-    set clipboard+=unnamed " share windows clipboard
+    set clipboard+=unnamedplus " share windows clipboard
     set fileformats=dos,unix,mac " support all three, in this order
     set hidden " you can change buffers without saving
     " (XXX: #VIM/tpope warns the line below could break things)
@@ -141,6 +141,12 @@ set nocompatible
     noremap <S-space> <C-b>
     noremap <space> <C-f>
 
+    " ctrl-a select all
+    map <C-a> ggVG
+
+    " ctrl-enter create newline above
+    imap <C-CR> <ESC>O
+
     " Make Arrow Keys Useful Again {
         map <down> <ESC>:bn<RETURN>
         map <left> <ESC>:NERDTreeToggle<RETURN>
@@ -220,10 +226,4 @@ endif
     " The following changes the default filetype back to 'tex':
     let g:tex_flavor='latex'
 
-
-"""""""""""""""""""""""
-" My key mappings
-"""""""""""""""""""""""
-
-imap <C-CR> <ESC>O
 
