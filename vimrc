@@ -3,8 +3,8 @@ set nocompatible
 " Basics {
     set nocompatible " explicitly get out of vi-compatible mode
     set noexrc " don't use local version of .(g)vimrc, .exrc
+    colorscheme desert
     set background=dark " we plan to use a dark background
-    colorscheme native
     set cpoptions=aABceFsmq
     "             |||||||||
     "             ||||||||+-- When joining lines, leave the cursor 
@@ -26,7 +26,7 @@ set nocompatible
 
 " General {
     filetype plugin indent on " load filetype plugins/indent settings
-    set autochdir " always switch to the current file directory 
+    "set autochdir " always switch to the current file directory 
     set backspace=indent,eol,start " make backspace a more flexible
     set backup " make backup files
     set clipboard=unnamedplus " share windows clipboard
@@ -81,7 +81,7 @@ set nocompatible
     set showcmd " show the command being typed
     set showmatch " show matching brackets
     set sidescrolloff=10 " Keep 5 lines at the size
-    set statusline=%<%F\ %h%m%r%w[%L][%{&ff}]%y%=%-14.(%l,%c%V%)\ [\ %P\ ]
+    set statusline=%<%t\ %h%m%r%w[%L][%{&ff}]%y[PWD:%{getcwd()}]%=%-14.(%l,%c%V%)\ [\ %P\ ]
     "set statusline=%F%m%r%h%w[%L][%{&ff}]%y%([%04l,%04v][%p%%]%)
     "              | | | | |  |   |      |  |     |    |
     "              | | | | |  |   |      |  |     |    + current 
@@ -100,7 +100,8 @@ set nocompatible
 " }
 
 " Text Formatting/Layout {
-    set completeopt= " don't use a pop up menu for completions
+    " set completeopt= " don't use a pop up menu for completions
+
     set expandtab " no real tabs please!
     set formatoptions=rq " Automatically insert comment leader on return, 
                           " and let gq format comments
@@ -153,6 +154,9 @@ set nocompatible
         map <right> <ESC>:Tlist<RETURN>
         map <up> <ESC>:bp<RETURN>
     " }
+    
+    " Ctags shortcut
+    map <C-F12> :!ctags -R --c++-kinds=+px-d --c-kinds=+px-d --fields=+iaS --extra=+q <CR>
 " }
 
 " Autocommands {
@@ -184,9 +188,10 @@ set nocompatible
 " GUI Settings {
 if has("gui_running")
     " Basics {
-        colorscheme native " my color scheme (only works in GUI)
+        colorscheme  solarized" my color scheme (only works in GUI)
+        set background=light
         set columns=100 " perfect size for me
-        set guifont=monospace\ 11 " My favorite font
+        set guifont=Droid\ Sans\ Mono\ 10 " My favorite font
         set guioptions=ce 
         "              ||
         "              |+-- use simple dialogs rather than pop-ups
@@ -194,6 +199,10 @@ if has("gui_running")
         set lines=40 " perfect size for me
         set mousehide " hide the mouse cursor when typing
     " }
+
+    " Popup menu colors
+    highlight Pmenu    guibg=darkgrey  guifg=black
+    highlight PmenuSel guibg=lightgrey guifg=black
 
     " Font Switching Binds {
         "map <F9> <ESC>:set guifont=Consolas:h10<CR>
@@ -227,3 +236,14 @@ endif
     let g:tex_flavor='latex'
 
 
+"""""""""""""""""""""""""""""""
+" Taglist Settings
+"""""""""""""""""""""""""""""""
+
+let Tlist_Show_One_File = 1
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_Use_Right_Window = 1
+set tags+=tags;
+
+" SuperTab
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
